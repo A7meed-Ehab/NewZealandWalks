@@ -2,7 +2,7 @@
 
 namespace NewZealandWalks.Api.Models.Domain
 {
-    public class Wals
+    public class Walk
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
