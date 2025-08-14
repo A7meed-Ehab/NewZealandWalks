@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using NewZealandWalks.Api.Data;
+using NewZealandWalks.Api.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("NZWalksConnectionString")));
+
+builder.Services.AddScoped<IRegionRepository,SqlRegionRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
