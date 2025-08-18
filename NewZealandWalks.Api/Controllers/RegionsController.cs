@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using NewZealandWalks.Api.CustomActionFilters;
 using NewZealandWalks.Api.Data;
 using NewZealandWalks.Api.Models.Domain;
 using NewZealandWalks.Api.Models.DTO;
@@ -49,6 +50,7 @@ namespace NewZealandWalks.Api.Controllers
             return Ok(regionDto);
         }
         [HttpPost]
+        [ValidateModel]
         [Route("CreateRegion", Name = "CreateAsync")]
         public async Task<IActionResult> CreateAsync([FromBody] AddRegionRequestDTO regionDTO)
         {
@@ -56,26 +58,25 @@ namespace NewZealandWalks.Api.Controllers
             {
                 var region = _mapper.Map<Region>(regionDTO);
                 var domainModel = await _regionRepository.CreateAsync(region);
-                if (domainModel == null)
-                {
-                    return BadRequest();
-                }
                 var regionDto = _mapper.Map<RegionDTO>(domainModel);
                 return CreatedAtAction("getbyid", new { id = regionDto.Id }, regionDTO);
             }
-            return BadRequest();
+            else
+                return BadRequest();
 
         }
         [HttpPut]
+        [ValidateModel]
+
         [Route("Updateregion/{id:guid}", Name = "UpadateRegion")]
         public async Task<IActionResult> Updateregion([FromRoute] Guid id, [FromBody] UpdateRegionRequestDTO updateRegionDto)
         {
-            var region = _mapper.Map<Region>(updateRegionDto);
+            
+                var region = _mapper.Map<Region>(updateRegionDto);
             var updatedModel = await _regionRepository.UpdateAsync(id, region);
-            if (updatedModel is null)
-            { return NotFound(); }
             var regoinDto = _mapper.Map<RegionDTO>(region);
             return Ok(regoinDto);
+                return BadRequest();
         }
         [HttpDelete]
         [Route("{id:guid}")]
