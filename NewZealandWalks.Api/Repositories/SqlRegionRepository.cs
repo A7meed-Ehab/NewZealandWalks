@@ -17,6 +17,10 @@ namespace NewZealandWalks.Api.Repositories
 
         public async Task<Region> CreateAsync(Region region)
         {
+            if (region == null)
+            {
+                return null;
+            }
              await _dbContext.Regions.AddAsync(region);
              await _dbContext.SaveChangesAsync();
              return region;
