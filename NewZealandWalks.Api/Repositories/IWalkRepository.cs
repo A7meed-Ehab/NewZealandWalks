@@ -6,7 +6,8 @@ namespace NewZealandWalks.Api.Repositories
     public interface IWalkRepository
     {
         Task<Walk> CreateAsync(Walk walk);
-        Task<List<Walk>> GetAllAsync();
+        Task<List<Walk>> GetAllAsync(string? filterOn , string? filterQuery,
+             string? sortBy, bool isAscending,int pageNumber=1, int pageSize=5);
         Task<Walk?> GetByIdAsync(Guid? Id);
         Task<Walk?> UpdateAsync(Guid? Id, updateWalkDto? dto);
         Task<Walk?> DeleteAsync(Guid? Id);

@@ -34,9 +34,10 @@ namespace NewZealandWalks.Api.Controllers
                 return BadRequest();
         }
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery]string? filterOn, [FromQuery] string? filterQuery,
+            [FromQuery] string? sortby, [FromQuery] bool? isAscending, [FromQuery] int pageNumber=1, [FromQuery] int pageSize = 1000)
         {
-            var walksDomain = await _walkRepository.GetAllAsync();
+            var walksDomain = await _walkRepository.GetAllAsync(filterOn, filterQuery,sortby,isAscending??true, pageNumber, pageSize);
             return Ok(_mapper.Map<List<WalkDto>>(walksDomain));
 
         }
