@@ -5,7 +5,7 @@ namespace NewZealandWalks.Api.Data
 {
     public class ApplicationDbContext:DbContext
     {
-        public ApplicationDbContext(DbContextOptions dbContextOptions):base(dbContextOptions)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> dbContextOptions):base(dbContextOptions)
         {
             
         }

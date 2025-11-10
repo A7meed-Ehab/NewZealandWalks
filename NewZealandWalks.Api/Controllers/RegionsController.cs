@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using NewZealandWalks.Api.CustomActionFilters;
 using NewZealandWalks.Api.Data;
@@ -10,6 +12,7 @@ namespace NewZealandWalks.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class RegionsController : ControllerBase
     {
         private readonly IMapper _mapper;
@@ -22,7 +25,12 @@ namespace NewZealandWalks.Api.Controllers
             this._dbContext = dbContext;
             this._regionRepository = regionRepository;
         }
-
+        //[HttpGet("{id:int}/{name:alpha}")]
+        [HttpPost]
+        public async Task<IActionResult> testPrimitive(int id,object name)
+        {
+            return Ok("Hellow");
+        }
         [HttpGet]
         [Route("List")]
         public async Task<IActionResult> GetAllRegions()
